@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:counterEnabled="true"
-        app:counterMaxLength="10"
+        app:counterMaxLength="280"
         app:counterTextAppearance="@style/counterText"
         app:counterOverflowTextAppearance="@style/counterOverride">
 
@@ -23,7 +23,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
-            android:ems="10"
+            android:ems="280"
             android:gravity="start|top"
             android:hint="What's happening?"
             android:inputType="textMultiLine"

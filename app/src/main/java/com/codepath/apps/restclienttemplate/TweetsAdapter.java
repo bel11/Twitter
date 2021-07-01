@@ -8,11 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.Target;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 
 import org.jetbrains.annotations.NotNull;
@@ -55,6 +57,11 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         return tweets.size();
     }
 
+    public void addAll(List<Tweet> tweets) {
+        tweets.addAll(tweets);
+        notifyDataSetChanged();
+    }
+
     // Define a viewholder
     public class ViewHolder extends RecyclerView.ViewHolder {
         // itemView represents a tweet/row in Adapter
@@ -62,6 +69,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         TextView tvBody;
         TextView tvScreenName;
         TextView tvRelativeTimestamp;
+        ImageView ivMedia;
 
         public ViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
@@ -69,6 +77,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvBody = itemView.findViewById(R.id.tvBody);
             tvScreenName = itemView.findViewById(R.id.tvScreenName);
             tvRelativeTimestamp = itemView.findViewById(R.id.tvRelativeTimestamp);
+            ivMedia = itemView.findViewById(R.id.ivMedia);
         }
 
         public void bind(Tweet tweet) {
@@ -77,6 +86,13 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             // CHANGE THIS
             tvRelativeTimestamp.setText(getRelativeTimeAgo(tweet.createdAt));
             Glide.with(context).load(tweet.user.profileImageUrl).into(ivProfileImage);
+            if (!tweet.mediaUrl.equals("")) {
+                Glide.with(context).load(tweet.mediaUrl).override(Target.SIZE_ORIGINAL).into(ivMedia);
+                ivMedia.setVisibility(View.VISIBLE);
+                Toast.makeText(context, "media loaded", Toast.LENGTH_SHORT);
+            } else {
+                ivMedia.setVisibility(View.GONE);
+            }
         }
         // code from codepath github link - for parsing Json created_at and returning relative time ago
         // getRelativeTimeAgo("Mon Apr 01 21:16:23 +0000 2014");
@@ -95,5 +111,11 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             }
             return relativeDate;
         }
+        // helper methods for RV
+        public void clear() {
+            tweets.clear();
+            notifyDataSetChanged();
+        }
+
     }
 }
