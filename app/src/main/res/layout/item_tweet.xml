@@ -22,8 +22,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="5dp"
-        android:layout_toEndOf="@+id/ivProfileImage"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/tvName"
         tools:text="bel.xi" />
 
     <TextView
@@ -42,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="0dp"
         android:layout_marginEnd="5dp"
         tools:text="8m" />
 
@@ -58,4 +59,22 @@
         android:scaleType="fitCenter"
         android:visibility="gone"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/ivMedia"
+        android:layout_marginTop="10dp"
+        android:background="@color/medium_gray_30" />
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@+id/ivProfileImage"
+        android:text="TextView"
+        android:textStyle="bold" />
 </RelativeLayout>

@@ -24,6 +24,8 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
 public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder>{
     Context context;
     List<Tweet> tweets;
@@ -69,6 +71,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         TextView tvBody;
         TextView tvScreenName;
         TextView tvRelativeTimestamp;
+        TextView tvName;
         ImageView ivMedia;
 
         public ViewHolder(@NonNull @NotNull View itemView) {
@@ -78,16 +81,27 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvScreenName = itemView.findViewById(R.id.tvScreenName);
             tvRelativeTimestamp = itemView.findViewById(R.id.tvRelativeTimestamp);
             ivMedia = itemView.findViewById(R.id.ivMedia);
+            tvName = itemView.findViewById(R.id.tvName);
         }
 
         public void bind(Tweet tweet) {
             tvBody.setText(tweet.body);
-            tvScreenName.setText(tweet.user.screenName);
+            tvScreenName.setText("@" + tweet.user.screenName);
+            tvName.setText(tweet.user.name);
             // CHANGE THIS
             tvRelativeTimestamp.setText(getRelativeTimeAgo(tweet.createdAt));
-            Glide.with(context).load(tweet.user.profileImageUrl).into(ivProfileImage);
+            RoundedCornersTransformation roundedCornersTransformation
+                    = new RoundedCornersTransformation(30, 0);
+            Glide.with(context)
+                    .load(tweet.user.profileImageUrl)
+                    .transform(roundedCornersTransformation)
+                    .into(ivProfileImage);
             if (!tweet.mediaUrl.equals("")) {
-                Glide.with(context).load(tweet.mediaUrl).override(Target.SIZE_ORIGINAL).into(ivMedia);
+                Glide.with(context)
+                        .load(tweet.mediaUrl)
+                        .override(Target.SIZE_ORIGINAL)
+                        .transform(roundedCornersTransformation)
+                        .into(ivMedia);
                 ivMedia.setVisibility(View.VISIBLE);
                 Toast.makeText(context, "media loaded", Toast.LENGTH_SHORT);
             } else {
