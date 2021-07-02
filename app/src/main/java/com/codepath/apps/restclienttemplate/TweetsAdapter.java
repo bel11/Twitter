@@ -103,7 +103,6 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                         .transform(roundedCornersTransformation)
                         .into(ivMedia);
                 ivMedia.setVisibility(View.VISIBLE);
-                Toast.makeText(context, "media loaded", Toast.LENGTH_SHORT);
             } else {
                 ivMedia.setVisibility(View.GONE);
             }
